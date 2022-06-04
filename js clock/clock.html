@@ -15,6 +15,11 @@
             <div class="hand hour-hand"></div>
             <div class="hand minute-hand"></div>
             <div class="hand second-hand"></div>
+
+            <div class="digits digits1">12</div>
+            <div class="digits digits2">3</div>
+            <div class="digits digits3">6</div>
+            <div class="digits digits4">9</div>
         </div>
 
     </div>
@@ -26,6 +31,14 @@
             box-sizing: border-box;
         }
 
+        body {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            background-image: url('https://unsplash.com/photos/j_AZBw3FqZI');
+
+        }
+
         .clock-face {
             width: 300px;
             height: 300px;
@@ -34,29 +47,104 @@
             border: 3px solid black;
             background-color: bisque;
             margin: 0 auto;
-            padding: 5%;
+
+        }
+
+        .digits {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+
+        }
+
+        .digits2 {
+            transform: translate(120px, 138px);
+        }
+
+        .digits3 {
+            transform: translate(0, 270px);
+        }
+
+        .digits4 {
+            transform: translate(-120px, 138px);
         }
 
         .hand {
-            height: 3px;
-            width: 45%;
+            --rotation: 0;
             background-color: black;
             position: absolute;
-            top: calc(50% - 1.5px);
-            transform-origin: 100%;
-            transform: rotate(90deg);
-            transition: all 0.05s ease-in;
-            transition-timing-function: cubic-bezier(0.25, 2.35, 0.5, 0.64);
+            left: 50%;
+            bottom: 50%;
+            transform: translate(-50%) rotate(calc(var(--rotation) * 1deg));
+            transform-origin: bottom;
+            z-index: 10;
+
+        }
+
+        .second-hand {
+            height: 50%;
+            width: 2px;
+        }
+
+        .minute-hand {
+            width: 5px;
+            height: 45%;
+        }
+
+        .hour-hand {
+            width: 7px;
+            height: 40%;
+        }
+
+        .clock-face::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: black;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 
-
     <script>
+        setInterval(setTime, 1000);
+
+        const secondHand = document.querySelector('.second-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const hourHand = document.querySelector('.hour-hand');
+
+
+        function setTime() {
+
+            const currentTime = new Date();
+            const secondRatio = currentTime.getSeconds() / 60;
+            const minuteRatio = (secondRatio + currentTime.getMinutes()) / 60;
+            const hourRatio = (minuteRatio + currentTime.getHours()) / 12;
+            //console.log(secondRatio, minuteRatio, hourRatio);
+            setRotation(secondHand, secondRatio);
+            setRotation(minuteHand, minuteRatio);
+            setRotation(hourHand, hourRatio);
+        }
+
+        function setRotation(element, rotationRatio) {
+            element.style.setProperty('--rotation', rotationRatio * 360)
+        }
+
+        setTime();
+    </script>
+
+    <!-- Wes Bos Solution -->
+    <!-- <script>
         //get the time in seconds, minutes and hours
         //get the time in seconds
         //convert time in seconds to degrees
         //set the time degrees on the corresponding clock hand
         //apply time at intervals
+
         const secondHand = document.querySelector('.second-hand');
         const minuteHand = document.querySelector('.minute-hand');
         const hourHand = document.querySelector('.hour-hand');
@@ -80,7 +168,7 @@
         }
 
         setInterval(setTime, 1000);
-    </script>
+    </script> -->
 </body>
 
 </html>
