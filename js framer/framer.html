@@ -11,10 +11,10 @@
 <body>
     <div class="container">
         <label for="padding">Padding</label>
-        <input type="range" name="padding" id="padding">
+        <input type="range" name="padding" id="padding" max="30" data-size="px">
 
         <label for="border-radius">Border radius</label>
-        <input type="range" name="border-radius" id="border-radius">
+        <input type="range" name="border-radius" id="border-radius" max="50" data-size="px">
 
         <label for="color">color</label>
         <input type="color" name="color" id="color">
@@ -23,10 +23,37 @@
 </body>
 
 <style>
+    :root {
+        --padding: 0px;
+        --border-radius: 4px;
+        --color: #fff;
+    }
+
     img {
         width: 25vw;
         height: 25vw;
+        padding: var(--padding);
+        border-radius: var(--border-radius);
+        background-color: var(--color);
     }
 </style>
+
+<script>
+    // listen for change in input
+    // when change is detected run a function
+    // 
+
+    const inputs = document.querySelectorAll('input');
+
+
+    inputs.forEach(input => input.addEventListener("change", handleChange));
+    inputs.forEach(input => input.addEventListener("mousemove", handleChange));
+
+    function handleChange() {
+
+        const suffix = this.dataset.size || '';
+        document.documentElement.style.setProperty(`--${this.name}`, `${this.value}${suffix}`)
+    }
+</script>
 
 </html>
