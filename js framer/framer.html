@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <img src=".\chris-stein-69b2Yyxlygg-unsplash.jpg" alt="">
     <div class="container">
         <label for="padding">Padding</label>
         <input type="range" name="padding" id="padding" max="30" data-size="px">
@@ -19,7 +20,6 @@
         <label for="color">color</label>
         <input type="color" name="color" id="color">
     </div>
-    <img src=".\chris-stein-69b2Yyxlygg-unsplash.jpg" alt="">
 </body>
 
 <style>
@@ -29,12 +29,32 @@
         --color: #fff;
     }
 
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-content: center;
+
+        background-image: url('https://images.unsplash.com/photo-1572635148687-307f8ca9b737?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHdoaXRlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .container {
+        margin: 2em 0;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
     img {
-        width: 25vw;
-        height: 25vw;
+        width: 200px;
+        height: 200px;
         padding: var(--padding);
         border-radius: var(--border-radius);
         background-color: var(--color);
+
     }
 </style>
 
@@ -43,17 +63,17 @@
     // when change is detected run a function
     // 
 
-    const inputs = document.querySelectorAll('input');
+    const inputs = document.querySelectorAll('input'); //Get input controls
 
-
-    inputs.forEach(input => input.addEventListener("change", handleChange));
-    inputs.forEach(input => input.addEventListener("mousemove", handleChange));
-
-    function handleChange() {
+    function handleChange() { //Handler function
 
         const suffix = this.dataset.size || '';
         document.documentElement.style.setProperty(`--${this.name}`, `${this.value}${suffix}`)
     }
+
+    inputs.forEach(input => input.addEventListener("change", handleChange));
+    inputs.forEach(input => input.addEventListener("mousemove", handleChange));
+
 </script>
 
 </html>
