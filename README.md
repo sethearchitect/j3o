@@ -8,3 +8,7 @@ Clock with Javascript and CSS
 ### 060622
 
 Simple image frame with Javascript and CSS variables 
+
+### 070622
+
+Array methods practice
