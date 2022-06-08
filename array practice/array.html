@@ -39,17 +39,50 @@
 
         // Array.prototype.filter()
         // 1. Filter the list of inventors for those who were born in the 1500's
+        function getBirth(set) {
+            let result = set.filter(item => {
+                let birth = item.year;
+                return birth >= 1500 && birth < 1600;
+            });
+            return result;
+        };
+
+        console.table(getBirth(inventors));
 
         // Array.prototype.map()
         // 2. Give us an array of the inventors first and last names
+        function inventorIntro(set) {
+            let intro = [];
+            set.map(item => intro.push(`${item.first} ${item.last}`));
+            console.table(intro);
+        };
+        inventorIntro(inventors);
 
         // Array.prototype.sort()
         // 3. Sort the inventors by birthdate, oldest to youngest
 
+        let sorted = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+        console.table(sorted);
+
+
         // Array.prototype.reduce()
         // 4. How many years did all the inventors live all together?
 
+        let totalYearsLived = inventors.reduce((total, inventor) => {
+            return total += inventor.passed - inventor.year;
+        }, 0);
+        console.log(`${totalYearsLived} years`);
+
         // 5. Sort the inventors by years lived
+        function sortLifeSpan(obj) {
+
+            let livedLongest = obj.sort((a, b) => {
+                return a.passed - a.year > b.passed - b.year ? -1 : 1;
+            });
+            console.table(livedLongest);
+        }
+        sortLifeSpan(inventors);
+
 
         // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
         // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -57,6 +90,15 @@
 
         // 7. sort Exercise
         // Sort the people alphabetically by last name
+        let testRun = people.sort()
+            .map(person => {
+                let a = person.split(', ');
+                let [aLast, aFirst] = a;
+                let name = `${aFirst}, ${aLast}`;
+                return name;
+            });
+
+        console.log(testRun);
 
         // 8. Reduce Exercise
         // Sum up the instances of each of these
